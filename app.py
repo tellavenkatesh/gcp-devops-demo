@@ -8,6 +8,7 @@ def add_numbers():
         a = int(request.args.get('a'))
         b = int(request.args.get('b'))
         result = a + b
+        print(a)
         return jsonify({"a": a, "b": b, "result": result})
     except:
         return jsonify({"error": "Please pass integers a and b"}), 400
