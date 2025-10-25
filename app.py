@@ -7,7 +7,7 @@ def add_numbers():
     try:
         a = int(request.args.get('a'))
         b = int(request.args.get('b'))
-        result = a + b
+        result = a + b + a
         print(a)
         return jsonify({"a": a, "b": b, "result": result})
     except:
