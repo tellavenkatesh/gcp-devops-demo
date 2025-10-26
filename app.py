@@ -15,7 +15,7 @@ def add_numbers():
 
 @app.route('/')
 def index():
-    return "Welcome to GCP DevOps Demo - Add Two Numbers API"
+    return "Welcome to GCP DevOps Demo and CI/CD automation - Add Two Numbers API"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
