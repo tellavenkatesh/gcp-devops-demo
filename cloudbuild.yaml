@@ -1,0 +1,23 @@
+steps:
+# Step 1: Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/gcp-devops/gcp-devops-demo:$COMMIT_SHA', '.']
+
+# Step 2: Push the image to Artifact Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'asia-south1-docker.pkg.dev/$PROJECT_ID/gcp-devops/gcp-devops-demo:$COMMIT_SHA']
+
+# Step 3: Set the image in Kubernetes Deployment
+- name: 'gcr.io/cloud-builders/kubectl'
+  args:
+    [
+      'set', 'image', 'deployment/gcp-devops-app',
+      'gcp-devops-app-container=asia-south1-docker.pkg.dev/$PROJECT_ID/gcp-devops/gcp-devops-demo:$COMMIT_SHA'
+    ]
+  env:
+  - 'CLOUDSDK_COMPUTE_REGION=asia-south1'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=gcp-devops-cluster'
+
+images:
+- 'asia-south1-docker.pkg.dev/$PROJECT_ID/gcp-devops/gcp-devops-demo:$COMMIT_SHA'
+
